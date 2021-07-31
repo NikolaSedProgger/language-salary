@@ -37,17 +37,7 @@ if __name__ == "__main__":
     'Swift',
     'Typescript'
     ]
-    secret_key = os.getenv("KEY")
-    headers = {
-        "X-Api-App-Id": "v3.r.133318714.f70e6d4022872fb93a542e0aad893270e9bc0e95.2e9144ce232372ab5fb95b959f47528aa754271c"
-    }
-    params = {
-        "town": "Москва",
-        "keyword": "Программист Python"
-    }    
+    sj_token = os.getenv("KEY")
 
-    url = "https://api.superjob.ru/2.0/vacancies/"
-    response = requests.get(url, headers=headers, params=params)
-
-    table(hh.get_languages_dict_for_hh(), "HeadHunter Moscow")
-    table(sj.get_languages_dict_for_sj(), "SuperJob Moscow")
+    table(hh.get_languages_vacancies_for_hh(PROGRAMMING_LANGUAGES), "HeadHunter Moscow")
+    table(sj.get_languages_vacancies_for_sj(sj_token, PROGRAMMING_LANGUAGES), "SuperJob Moscow")
