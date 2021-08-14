@@ -1,31 +1,28 @@
 import requests
-
+from main import get_language_salary
 
 def get_found_vacancies(language):
     url = "https://api.hh.ru/vacancies/"
+    town_id = 1
+    days_period = 30
     params = {
         "text": f"Программист {language}",
-        "area": "1",
-        "period": "30",
+        "area": town_id,
+        "period": days_period,
     }
-    response = requests.get(url, params=params)
     found_vacancies = []
     page = 0
     pages = 100
 
     while page < pages:
-        params = {
-            "text": f"Программист {language}",
-            "area": "1",
-            "period": "30",
-            "page": page
-        }
+        params["page"] = page
+
         response = requests.get(url, params=params)
         page += 1
         pages = response.json()['pages']
-
-        for vacancy in response.json()['items']:
-            found_vacancies.extend([vacancy])
+        response.raise_for_status()
+        found_vacancies.extend(response.json()['items'])
+        
         response.raise_for_status()
     return found_vacancies
 
@@ -39,18 +36,8 @@ def get_average_salaries_from_vacancies(language, vacancies):
     return result
 
 
-def get_language_salary(language, average_salaries):
-    salaries = []
-    for salary in average_salaries:
-        if salary['from'] == None:
-            salaries.append(salary['to'] * 0.8)
-        elif salary['to'] == None:
-            salaries.append(salary['from'] * 1.2)
-    return(int(sum(salaries) / len(salaries)))
-
-
-def get_languages_vacancies_for_hh(programming_languages):
-    languages_vacancies = {}
+def get_language_vacancies_for_hh(programming_languages):
+    language_vacancies = {}
     url = "https://api.hh.ru/vacancies/"
     for language in programming_languages:
         params = {
@@ -59,6 +46,11 @@ def get_languages_vacancies_for_hh(programming_languages):
             "period": "30",
         }
         response = requests.get(url, params=params)
-        vacancies_average_salaries = get_average_salaries_from_vacancies(language, get_found_vacancies(language))
-        languages_vacancies.update({language: {"vacancies_found": response.json()['found'], "vacancies_processed": len(vacancies_average_salaries), "average_salary": get_language_salary(language, vacancies_average_salaries)}})
-    return languages_vacancies
+        vacancies_average_salary = get_average_salaries_from_vacancies(language, get_found_vacancies(language))
+        vacancies_found = response.json()['found']
+        vacancies_processed = len(vacancies_average_salary)
+        average_salary = get_language_salary(vacancies_average_salary)
+        language_vacancies.update({language: {"vacancies_found": vacancies_found, "vacancies_processed": vacancies_processed, "average_salary": average_salary}})
+        response.raise_for_status()
+
+    return language_vacancies

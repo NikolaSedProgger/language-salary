@@ -13,7 +13,7 @@ pip install -r requirements.txt
 
 Далее получаем ключ API сервиса SuperJob и заполняем его в .env:
 ```bash
-KEY=YOUR_KEY
+SJ_TOKEN=YOUR_TOKEN
 ```
 
 Запускаем ```main.py```
