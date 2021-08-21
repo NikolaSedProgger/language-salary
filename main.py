@@ -15,14 +15,6 @@ def get_language_salary(average_salaries):
             salaries.append(salary['from'] or salary["payment_from"] * 1.2)
     return(int(sum(salaries) / len(salaries)))
 
-def get_average_salary(salaries):
-    Sum = 0
-    for i in salaries:
-        Sum = Sum + i
-    salary = Sum / len(salaries)
-    return int(salary)
-
-
 def table(languages_dict, table_name):
     table_data = [
         ['Язык программирования', 'Вакансий найдено', 'Вакансий обработано', 'Средняя зарплата'],
