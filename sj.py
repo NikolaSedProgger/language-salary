@@ -1,6 +1,6 @@
 import requests
 import os
-from main import get_language_salary
+from get_language_salary import get_language_salary
 
 
 def get_vacancies_from_sj(language):
