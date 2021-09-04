@@ -17,6 +17,7 @@ def сreate_table(programming_language, table_name):
     return table.table
 
 if __name__ == "__main__":
+    sj_token = os.getenv("SJ_TOKEN")
     programming_languages = [
         'JavaScript',
         'Java',
@@ -35,4 +36,4 @@ if __name__ == "__main__":
     sj_token = os.getenv("KEY")
 
     print(сreate_table(hh.get_language_vacancies_hh(programming_languages), "HeadHunter Moscow"))
-    print(сreate_table(sj.get_language_vacancies_sj(programming_languages), "SuperJob Moscow"))
+    print(сreate_table(sj.get_language_vacancies_sj(programming_languages, sj_token), "SuperJob Moscow"))
