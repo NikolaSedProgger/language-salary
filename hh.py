@@ -1,3 +1,4 @@
+import json
 import requests
 from get_language_salary import get_language_salary
 
@@ -21,9 +22,10 @@ def get_found_vacancies(language):
         response = requests.get(url, params=params)
         response.raise_for_status()
         page += 1
-        pages = response.json()['pages']
+        debbuged_api = response.json()
+        pages = debbuged_api['pages']
         response.raise_for_status()
-        found_vacancies.extend(response.json()['items'])
+        found_vacancies.extend(debbuged_api['items'])
     return found_vacancies
 
 
