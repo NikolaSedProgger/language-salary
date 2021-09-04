@@ -31,8 +31,8 @@ def get_vacancies_from_sj(language):
     return vacancies_found, debugged_api
 
 
-def process_vacancies_from_sj(vacancies, vacancies_dict):
-    vacancies_found = vacancies_dict['total']
+def process_vacancies_from_sj(vacancies, total_vacancies):
+    vacancies_found = total_vacancies['total']
     vacancies_processed = len(vacancies)
     payments = []
     for vacancy in vacancies:

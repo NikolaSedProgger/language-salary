@@ -4,14 +4,14 @@ from terminaltables import AsciiTable
 import hh
 import sj
 
-def сreate_table(languages_dict, table_name):
+def сreate_table(programming_language, table_name):
     table_data = [
         ['Язык программирования', 'Вакансий найдено', 'Вакансий обработано', 'Средняя зарплата'],
     ]
     for language in programming_languages:
-        vacancies_found = languages_dict[language]['vacancies_found']
-        vacancies_processed = languages_dict[language]['vacancies_processed']
-        average_salary = languages_dict[language]['average_salary']
+        vacancies_found = programming_language[language]['vacancies_found']
+        vacancies_processed = programming_language[language]['vacancies_processed']
+        average_salary = programming_language[language]['average_salary']
         table_data.append([language, vacancies_found, vacancies_processed, average_salary])
     table = AsciiTable(table_data, table_name)
     return table.table
