@@ -55,7 +55,9 @@ def process_vacancies_from_sj(vacancies, total_vacancies):
 def get_language_vacancies_sj(programming_languages):
     language_vacancies = {}
     for language in programming_languages:
+        vacancies_found = 0
+        debugged_api = 1
         sj_vacancies = get_vacancies_from_sj(language)
-        processed_vacancies = process_vacancies_from_sj(sj_vacancies[0], sj_vacancies[1])
+        processed_vacancies = process_vacancies_from_sj(sj_vacancies[vacancies_found], sj_vacancies[debugged_api])
         language_vacancies.update({language: processed_vacancies})
     return language_vacancies
