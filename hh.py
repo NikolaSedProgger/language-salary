@@ -19,11 +19,11 @@ def get_found_vacancies(language):
         params["page"] = page
 
         response = requests.get(url, params=params)
+        response.raise_for_status()
         page += 1
         pages = response.json()['pages']
         response.raise_for_status()
         found_vacancies.extend(response.json()['items'])
-        response.raise_for_status()
     return found_vacancies
 
 
@@ -47,6 +47,7 @@ def get_language_vacancies_hh(programming_languages):
             "period": "30",
         }
         response = requests.get(url, params=params)
+        response.raise_for_status()
         found_vacancies = get_found_vacancies(language)
         vacancies_average_salary = get_vacancies_average_salaries(language, found_vacancies)
         vacancies_found = response.json()['found']
@@ -58,6 +59,5 @@ def get_language_vacancies_hh(programming_languages):
             "average_salary": average_salary
         }
         language_vacancies.update({language: vacancies_info})
-        response.raise_for_status()
-
+        
     return language_vacancies
