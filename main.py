@@ -9,10 +9,8 @@ def сreate_table(programming_language, table_name):
         ['Язык программирования', 'Вакансий найдено', 'Вакансий обработано', 'Средняя зарплата'],
     ]
     for language in programming_languages:
-        vacancies_found = programming_language[language]['vacancies_found']
-        vacancies_processed = programming_language[language]['vacancies_processed']
-        average_salary = programming_language[language]['average_salary']
-        table_data.append([language, vacancies_found, vacancies_processed, average_salary])
+        vacancies = programming_language[language].items()
+        table_data.append([language, vacancies[0], vacancies[1], vacancies[2]])
     table = AsciiTable(table_data, table_name)
     return table.table
 
