@@ -54,7 +54,7 @@ def get_language_vacancies_hh(programming_languages):
         vacancies_average_salary = get_vacancies_average_salaries(language, found_vacancies)
         vacancies_found = response.json()['found']
         vacancies_processed = len(vacancies_average_salary)
-        average_salary = get_language_salary(vacancies_average_salary)
+        average_salary = get_language_salary(vacancies_average_salary['from'], vacancies_average_salary['to'])
         vacancies_info = {
             "vacancies_found": vacancies_found,
             "vacancies_processed": vacancies_processed,

@@ -2,7 +2,6 @@ import requests
 import os
 from get_language_salary import get_language_salary
 
-
 def get_vacancies_from_sj(language,sj_token):
     url = "https://api.superjob.ru/2.0/vacancies/"
     page = 1
@@ -38,8 +37,8 @@ def process_vacancies_from_sj(vacancies, total_vacancies):
     for vacancy in vacancies:
         payment_to = vacancy['payment_to']
         payment_from = vacancy['payment_from']
-        average_salary_vacancy = get_language_salary([payment_to, payment_from])
-        if average_salary_vacancy == 0:
+        average_salary_vacancy = get_language_salary(payment_from, payment_to)
+        if average_salary_vacancy == None:
             None
         else:
             payments.append(average_salary_vacancy)
