@@ -8,10 +8,9 @@ def сreate_table(programming_language, table_name):
     table_data = [
         ['Язык программирования', 'Вакансий найдено', 'Вакансий обработано', 'Средняя зарплата'],
     ]
-    for language in programming_languages:
-        vacancies = programming_language[language].items()
-        table_data.append([language, vacancies[0], vacancies[1], vacancies[2]])
-    table = AsciiTable(table_data, table_name)
+    for language, stats in programming_languages.items():
+        table_variables.append([language, stats[0], stats[1], stats[2]])
+    table = AsciiTable(table_variables, table_name)
     return table.table
 
 if __name__ == "__main__":
