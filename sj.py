@@ -25,9 +25,10 @@ def get_vacancies_from_sj(language,sj_token):
         page += 1
         params["page"] = page
         new_response = requests.get(url, params=params, headers=headers)
-        response.raise_for_status()
+        new_response.raise_for_status()
         vacancies = []
         vacancies.extend(new_response.json()['objects'])
+        debugged_api = new_response.json()
 
     return vacancies_found, vacancies
 
@@ -40,9 +41,9 @@ def process_vacancies_from_sj(vacancies, total_vacancies):
         payment_to = vacancy['payment_to']
         payment_from = vacancy['payment_from']
         average_salary_vacancy = get_language_salary(payment_from, payment_to)
-        if average_salary_vacancy == None:
+        if average_salary_vacancy is None:
             None
-        else:
+        elif average_salary_vacancy:
             payments.append(average_salary_vacancy)
     average_salary = get_language_salary(payments)
     process_vacancies = {
