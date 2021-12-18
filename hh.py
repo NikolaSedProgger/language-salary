@@ -34,8 +34,9 @@ def get_vacancies_average_salaries(language, vacancies):
 
     for vacancy in vacancies:
         currency = vacancy['salary']['currency']
-        if vacancy['salary'] != None and currency == 'RUR':
-            result.append(vacancy['salary'])
+        if vacancy['salary']:
+            if currency == 'RUR':
+                result.append(vacancy['salary'])
     return result
 
 
