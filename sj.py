@@ -43,7 +43,6 @@ def process_vacancies_from_sj(vacancies, total_vacancies):
         average_salary_vacancy = get_language_salary(payment_from, payment_to)
         if average_salary_vacancy:
             payments.append(average_salary_vacancy)
-    average_salary = get_language_salary(payments)
     average_salary = sum(payments) / vacancies_processed
     process_vacancies = {
         "vacancies_found": vacancies_found,
