@@ -22,7 +22,7 @@ def get_vacancies_from_sj(language,sj_token):
     vacancies_found = debugged_api['objects']
     
     while debugged_api["more"]:
-        page += 1
+        page = page + 1
         params["page"] = page
         new_response = requests.get(url, params=params, headers=headers)
         new_response.raise_for_status()
@@ -44,6 +44,7 @@ def process_vacancies_from_sj(vacancies, total_vacancies):
         if average_salary_vacancy:
             payments.append(average_salary_vacancy)
     average_salary = get_language_salary(payments)
+    average_salary = sum(payments) / vacancies_processed
     process_vacancies = {
         "vacancies_found": vacancies_found,
         "vacancies_processed": vacancies_processed,
