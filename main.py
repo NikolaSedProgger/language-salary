@@ -30,7 +30,6 @@ if __name__ == "__main__":
         'Swift',
         'Typescript'
         ]
-    sj_token = os.getenv("KEY")
 
     print(сreate_table(hh.get_language_vacancies_hh(programming_languages), "HeadHunter Moscow"))
     print(сreate_table(sj.get_language_vacancies_sj(programming_languages, sj_token), "SuperJob Moscow"))
