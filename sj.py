@@ -19,7 +19,7 @@ def get_vacancies_from_sj(language,sj_token):
     response = requests.get(url, params=params, headers=headers)
     response.raise_for_status()
     debugged_api = response.json()
-    vacancies_found = debugged_api['objects']
+    vacancies_found = debugged_api["objects"]
     
     while debugged_api["more"]:
         page = page + 1
@@ -27,19 +27,19 @@ def get_vacancies_from_sj(language,sj_token):
         new_response = requests.get(url, params=params, headers=headers)
         new_response.raise_for_status()
         vacancies = []
-        vacancies.extend(new_response.json()['objects'])
+        vacancies.extend(new_response.json()["objects"])
         debugged_api = new_response.json()
 
     return vacancies_found, vacancies
 
 
 def process_vacancies_from_sj(vacancies, total_vacancies):
-    vacancies_found = total_vacancies['total']
+    vacancies_found = total_vacancies["total"]
     vacancies_processed = len(vacancies)
     payments = []
     for vacancy in vacancies:
-        payment_to = vacancy['payment_to']
-        payment_from = vacancy['payment_from']
+        payment_to = vacancy["payment_to"]
+        payment_from = vacancy["payment_from"]
         average_salary_vacancy = get_language_salary(payment_from, payment_to)
         if average_salary_vacancy:
             payments.append(average_salary_vacancy)
