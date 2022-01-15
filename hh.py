@@ -22,22 +22,22 @@ def get_found_vacancies(language):
         response = requests.get(url, params=params)
         response.raise_for_status()
         page += 1
-        debbuged_api = response.json()
-        pages = debbuged_api["pages"]
+        response_content = response.json()
+        pages = response_content["pages"]
         response.raise_for_status()
-        found_vacancies.extend(debbuged_api["items"])
+        found_vacancies.extend(response_content["items"])
     return found_vacancies
 
 
 def get_vacancies_average_salaries(vacancies):
-    result = []
+    vacancies_salaries = []
 
     for vacancy in vacancies:
         currency = vacancy["salary"]["currency"]
         if vacancy["salary"]:
             if currency == "RUR":
-                result.append(vacancy["salary"])
-    return result
+                vacancies_salaries.append(vacancy["salary"])
+    return vacancies_salaries
 
 
 def get_language_vacancies_hh(programming_languages):
@@ -56,11 +56,11 @@ def get_language_vacancies_hh(programming_languages):
         vacancies_found = response.json()["found"]
         vacancies_processed = len(vacancies_average_salary)
         average_salary = get_language_salary(vacancies_average_salary)
-        vacancies_info = {
+        vacancies_description = {
             "vacancies_found": vacancies_found,
             "vacancies_processed": vacancies_processed,
             "average_salary": average_salary
         }
-        language_vacancies.update({language: vacancies_info})
+        language_vacancies.update({language: vacancies_description})
         
     return language_vacancies
