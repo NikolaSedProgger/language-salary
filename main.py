@@ -4,7 +4,7 @@ from terminaltables import AsciiTable
 import hh
 import sj
 
-def сreate_table(programming_languages, table_name):
+def create_table(programming_languages, table_name):
     table_variables = [
         ["Язык программирования", "Вакансий найдено", "Вакансий обработано", "Средняя зарплата"],
     ]
