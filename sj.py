@@ -18,17 +18,17 @@ def get_vacancies_from_sj(language,sj_token):
 
     response = requests.get(url, params=params, headers=headers)
     response.raise_for_status()
-    debugged_api = response.json()
-    vacancies_found = debugged_api["objects"]
+    superjob_vacancies = response.json()
+    vacancies_found = superjob_vacancies["objects"]
     
-    while debugged_api["more"]:
+    while superjob_vacancies["more"]:
         page = page + 1
         params["page"] = page
         new_response = requests.get(url, params=params, headers=headers)
         new_response.raise_for_status()
         vacancies = []
         vacancies.extend(new_response.json()["objects"])
-        debugged_api = new_response.json()
+        superjob_vacancies = new_response.json()
 
     return vacancies_found, vacancies
 
@@ -55,9 +55,7 @@ def process_vacancies_from_sj(vacancies, total_vacancies):
 def get_language_vacancies_sj(programming_languages, sj_token):
     language_vacancies = {}
     for language in programming_languages:
-        vacancies_found = 0
-        debugged_api = 1
         sj_vacancies = get_vacancies_from_sj(language, sj_token)
-        processed_vacancies = process_vacancies_from_sj(sj_vacancies[vacancies_found], sj_vacancies[debugged_api])
+        processed_vacancies = [process_vacancies_from_sj(vacancy) for vacancy in sj_vacancies]
         language_vacancies.update({language: processed_vacancies})
     return language_vacancies
