@@ -24,11 +24,9 @@ def get_vacancies_from_sj(language,sj_token):
     while superjob_vacancies["more"]:
         page = page + 1
         params["page"] = page
-        new_response = requests.get(url, params=params, headers=headers)
-        new_response.raise_for_status()
-        vacancies = []
-        vacancies.extend(new_response.json()["objects"])
-        superjob_vacancies = new_response.json()
+        response = requests.get(url, params=params, headers=headers)
+        response.raise_for_status()
+        vacancies.extend(response.json()["objects"])
 
     return vacancies_found, vacancies
 
