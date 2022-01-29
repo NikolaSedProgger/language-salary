@@ -59,5 +59,4 @@ def get_language_vacancies_hh(programming_languages):
             "average_salary": average_salary
         }
         language_vacancies.update({language: vacancies_description})
-        
     return language_vacancies

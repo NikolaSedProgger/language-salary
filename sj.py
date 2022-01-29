@@ -2,7 +2,8 @@ import requests
 import os
 from get_language_salary import get_language_salary
 
-def get_vacancies_from_sj(language,sj_token):
+
+def get_vacancies_from_sj(language, sj_token):
     url = "https://api.superjob.ru/2.0/vacancies/"
     page = 1
 
@@ -18,10 +19,10 @@ def get_vacancies_from_sj(language,sj_token):
 
     response = requests.get(url, params=params, headers=headers)
     response.raise_for_status()
-    superjob_vacancies = response.json()
-    vacancies_found = superjob_vacancies["objects"]
-    
-    while superjob_vacancies["more"]:
+    vacancies_found = response.json()["objects"]
+    vacancies = []
+
+    while response.json()["more"]:
         page = page + 1
         params["page"] = page
         response = requests.get(url, params=params, headers=headers)
