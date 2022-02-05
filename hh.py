@@ -3,7 +3,7 @@ import requests
 from get_language_salary import get_language_salary
 
 
-def get_found_vacancies(language):
+def found_vacancies(language):
     url = "https://api.hh.ru/vacancies/"
     town_id = 1
     days_period = 30
@@ -29,7 +29,7 @@ def get_found_vacancies(language):
     return found_vacancies
 
 
-def get_vacancies_average_salaries(vacancies):
+def get_vacancies_salaries(vacancies):
     vacancies_salaries = []
 
     for vacancy in vacancies:
@@ -49,8 +49,8 @@ def get_language_vacancies_hh(programming_languages):
         }
         response = requests.get(url, params=params)
         response.raise_for_status()
-        vacancies_found = get_found_vacancies(language)
-        vacancies_average_salary = get_vacancies_average_salaries(vacancies_found)
+        vacancies_found = found_vacancies(language)
+        vacancies_average_salary = get_vacancies_salaries(vacancies_found)
         vacancies_processed = len(vacancies_average_salary)
         average_salary = get_language_salary(vacancies_average_salary)
         vacancies_description = {
