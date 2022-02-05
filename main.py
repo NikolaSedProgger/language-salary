@@ -32,5 +32,5 @@ if __name__ == "__main__":
         "Typescript"
         ]
 
-    print(сreate_table(hh.get_language_vacancies_hh(programming_languages), "HeadHunter Moscow"))
-    print(сreate_table(sj.get_language_vacancies_sj(programming_languages, sj_token), "SuperJob Moscow"))
+    print(create_table(hh.get_language_vacancies_hh(programming_languages), "HeadHunter Moscow"))
+    print(create_table(sj.get_language_vacancies_sj(programming_languages, sj_token), "SuperJob Moscow"))
