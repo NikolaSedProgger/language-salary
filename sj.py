@@ -33,8 +33,6 @@ def get_vacancies_from_sj(language, sj_token):
 
 
 def process_vacancies_from_sj(vacancies, total_vacancies):
-    vacancies_found = total_vacancies["total"]
-    vacancies_processed = len(vacancies)
     payments = []
     for vacancy in vacancies:
         payment_to = vacancy["payment_to"]
@@ -43,12 +41,12 @@ def process_vacancies_from_sj(vacancies, total_vacancies):
         if average_salary_vacancy:
             payments.append(average_salary_vacancy)
     try:
-        average_salary = sum(payments) / vacancies_processed
+        average_salary = sum(payments) / len(vacancies)
     except ZeroDivisionError:
         average_salary = 0
     process_vacancies = {
-        "vacancies_found": vacancies_found,
-        "vacancies_processed": vacancies_processed,
+        "vacancies_found": total_vacancies["total"],
+        "vacancies_processed": len(vacancies),
         "average_salary": average_salary
     }
     return process_vacancies
