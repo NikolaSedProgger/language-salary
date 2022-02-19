@@ -28,16 +28,6 @@ def found_vacancies(language):
         found_vacancies.extend(response_content["items"])
     return found_vacancies
 
-
-def get_vacancies_salaries(vacancies):
-    vacancies_salaries = []
-
-    for vacancy in vacancies:
-        if vacancy['salary']['currency'] == 'RUR':
-            vacancies_salaries.append(vacancy["salary"])
-    return vacancies_salaries
-
-
 def get_language_vacancies_hh(programming_languages):
     language_vacancies = {}
     url = "https://api.hh.ru/vacancies/"
@@ -47,12 +37,13 @@ def get_language_vacancies_hh(programming_languages):
             "area": "1",
             "period": "30",
         }
-        response = requests.get(url, params=params)
-        response.raise_for_status()
         vacancies_found = found_vacancies(language)
-        vacancies_average_salary = get_vacancies_salaries(vacancies_found)
-        vacancies_processed = len(vacancies_average_salary)
-        average_salary = get_language_salary(vacancies_average_salary)
+        vacancy_salaries = []
+        for vacancy in vacancies_found: 
+            if vacancy['salary']['currency'] == 'RUR':
+                vacancy_salaries.append(vacancy["salary"])
+        vacancies_processed = len(vacancy_salaries)
+        average_salary = get_language_salary(vacancy_salaries)
         vacancies_description = {
             "vacancies_found": vacancies_found,
             "vacancies_processed": vacancies_processed,

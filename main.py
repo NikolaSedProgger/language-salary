@@ -1,9 +1,9 @@
+from unittest import result
 import requests
 import os
 from terminaltables import AsciiTable
 import hh
 import sj
-
 
 def create_table(programming_languages, table_name):
     table_variables = [
@@ -16,6 +16,7 @@ def create_table(programming_languages, table_name):
 
 if __name__ == "__main__":
     sj_token = os.getenv("SJ_TOKEN")
+    
     programming_languages = [
         "JavaScript",
         "Java",
@@ -30,7 +31,7 @@ if __name__ == "__main__":
         "Scala",
         "Swift",
         "Typescript"
-        ]
+    ]
 
     print(create_table(hh.get_language_vacancies_hh(programming_languages), "HeadHunter Moscow"))
     print(create_table(sj.get_language_vacancies_sj(programming_languages, sj_token), "SuperJob Moscow"))
