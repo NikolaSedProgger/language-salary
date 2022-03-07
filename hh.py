@@ -28,6 +28,7 @@ def found_vacancies(language):
         founded_vacancies.extend(response_content["items"])
     return founded_vacancies
 
+
 def get_language_vacancies_hh(programming_languages):
     language_vacancies = {}
     url = "https://api.hh.ru/vacancies/"
@@ -39,7 +40,7 @@ def get_language_vacancies_hh(programming_languages):
         }
         vacancies_found = found_vacancies(language)
         vacancy_salaries = []
-        for vacancy in vacancies_found: 
+        for vacancy in vacancies_found:
             if vacancy['salary']['currency'] == 'RUR':
                 vacancy_salaries.append(vacancy["salary"])
         vacancies_processed = len(vacancy_salaries)

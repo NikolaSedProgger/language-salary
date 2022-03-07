@@ -5,6 +5,7 @@ from terminaltables import AsciiTable
 import hh
 import sj
 
+
 def create_table(programming_languages, table_name):
     table_variables = [
         ["Язык программирования", "Вакансий найдено", "Вакансий обработано", "Средняя зарплата"],
@@ -16,7 +17,6 @@ def create_table(programming_languages, table_name):
 
 if __name__ == "__main__":
     sj_token = os.getenv("SJ_TOKEN")
-    
     programming_languages = [
         "JavaScript",
         "Java",
