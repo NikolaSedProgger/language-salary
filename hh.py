@@ -12,7 +12,7 @@ def found_vacancies(language):
         "area": town_id,
         "period": days_period,
     }
-    found_vacancies = []
+    founded_vacancies = []
     page = 0
     pages = 100
 
@@ -25,8 +25,8 @@ def found_vacancies(language):
         response_content = response.json()
         pages = response_content["pages"]
         response.raise_for_status()
-        found_vacancies.extend(response_content["items"])
-    return found_vacancies
+        founded_vacancies.extend(response_content["items"])
+    return founded_vacancies
 
 def get_language_vacancies_hh(programming_languages):
     language_vacancies = {}
