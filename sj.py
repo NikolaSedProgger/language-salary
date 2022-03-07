@@ -21,14 +21,11 @@ def get_vacancies_from_sj(language, sj_token):
     response.raise_for_status()
     vacancies = []
 
-    while vacancies_on_page["more"]:
-        page = page + 1
-        params["page"] = page
+    while response.json()["more"]:
+        params["page"] = page + 1
         response = requests.get(url, params=params, headers=headers)
-        response.raise_for_status()
-        vacancies_on_page = response.json()
-        vacancies.extend(vacancies_on_page["objects"])
-
+        response.raise_for_status() 
+        vacancies.extend(response.json()["objects"])
     return response.json()["objects"], vacancies
 
 
