@@ -24,9 +24,10 @@ def get_vacancies_from_sj(language, sj_token):
     while response.json()["more"]:
         params["page"] = page + 1
         response = requests.get(url, params=params, headers=headers)
+        objects = response.json()["objects"]
         response.raise_for_status()
-        vacancies.extend(response.json()["objects"])
-    return response.json()["objects"], vacancies
+        vacancies.extend(objects)
+    return objects, vacancies
 
 
 def process_vacancies_from_sj(vacancies, total_vacancies):
