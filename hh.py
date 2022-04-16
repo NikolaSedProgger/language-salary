@@ -1,4 +1,3 @@
-import json
 import requests
 from get_language_salary import get_language_salary
 
@@ -39,16 +38,24 @@ def get_language_vacancies_hh(programming_languages):
             "period": "30",
         }
         vacancies_found = found_vacancies(language)
-        vacancy_salaries = []
+        payments = []
         for vacancy in vacancies_found:
-            if vacancy['salary']['currency'] == 'RUR':
-                vacancy_salaries.append(vacancy["salary"])
-        vacancies_processed = len(vacancy_salaries)
-        average_salary = get_language_salary(vacancy_salaries)
+            try:
+                payment_to = vacancy['salary']["to"]
+                payment_from = vacancy['salary']["from"]
+                average_salary_vacancy = get_language_salary(payment_from, payment_to)
+                payments.append(average_salary_vacancy)
+            except TypeError:
+                None
+        vacancies_processed = len(payments)
+        try:
+            average_salary = sum(payments) / vacancies_processed
+        except ZeroDivisionError:
+            average_salary = 0
         vacancies_description = {
-            "vacancies_found": vacancies_found,
+            "vacancies_found": len(vacancies_found),
             "vacancies_processed": vacancies_processed,
-            "average_salary": average_salary
+            "average_salary": int(average_salary)
         }
         language_vacancies.update({language: vacancies_description})
     return language_vacancies

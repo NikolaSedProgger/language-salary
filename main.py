@@ -1,6 +1,5 @@
-from unittest import result
-import requests
 import os
+from pstats import Stats
 from terminaltables import AsciiTable
 import hh
 import sj
@@ -11,7 +10,8 @@ def create_table(programming_languages, table_name):
         ["Язык программирования", "Вакансий найдено", "Вакансий обработано", "Средняя зарплата"],
     ]
     for language, stats in programming_languages.items():
-        table_variables.append([language, stats[0], stats[1], stats[2]])
+        print(stats['vacancies_found'])
+        table_variables.append([language, stats['vacancies_found'], stats['vacancies_processed'], stats['average_salary']])
     table = AsciiTable(table_variables, table_name)
     return table.table
 

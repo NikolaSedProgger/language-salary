@@ -1,5 +1,4 @@
 import requests
-import os
 from get_language_salary import get_language_salary
 
 
@@ -20,14 +19,14 @@ def get_vacancies_from_sj(language, sj_token):
     response = requests.get(url, params=params, headers=headers)
     response.raise_for_status()
     vacancies = []
-
+    vacancies.append(response.json()['objects'])
     while response.json()["more"]:
         params["page"] = page + 1
         response = requests.get(url, params=params, headers=headers)
         objects = response.json()["objects"]
         response.raise_for_status()
         vacancies.extend(objects)
-    return objects, vacancies
+    return vacancies
 
 
 def process_vacancies_from_sj(vacancies, total_vacancies):
@@ -45,7 +44,7 @@ def process_vacancies_from_sj(vacancies, total_vacancies):
     process_vacancies = {
         "vacancies_found": total_vacancies["total"],
         "vacancies_processed": len(vacancies),
-        "average_salary": average_salary
+        "average_salary": int(average_salary)
     }
     return process_vacancies
 
